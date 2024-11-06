@@ -6,13 +6,13 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:40:31 by pau               #+#    #+#             */
-/*   Updated: 2024/11/05 11:31:00 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/06 11:09:21 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-t_cub3d	*ft_new_sprite(t_image *img, char *path)
+t_image	*ft_new_sprite(t_image *img, char *path)
 {
 	img->img = mlx_xpm_file_to_image(img->mlx, path,
 			&img->x_size, &img->y_size);
@@ -42,10 +42,10 @@ int	close_window(t_image *img)
 // 	return (free(ext), 0);
 // }
 
-// void	leaks(void)
-// {
-// 	system("leaks -q so_long");
-// }
+// // void	leaks(void)
+// // {
+// // 	system("leaks -q so_long");
+// // }
 
 // int	check_permision(char **argv)
 // {
@@ -70,27 +70,33 @@ int	close_window(t_image *img)
 
 int	main(int argc, char **argv)
 {
-	t_cub3d *cub;
+	char	**map;
+	t_image	*img;
 
+	if(argc == 0)
+		return(0);
 	// if (!check_permision(argv) || argc != 2
 	// 	|| (argc == 2 && !check_extension(argv[1])))
 	// 	return (ft_printf("error\nbad argument\n"), 1);
-	if (!ft_read(argv))
-		return (ft_printf("error\nbad map\n"));
+	// if (!ft_read(argv))
+	// 	return (ft_printf("error\nbad map\n"));
 	map = ft_read(argv);
 	// if (!check_map(map, argv))
 	// 	return (free_matriz(map), ft_printf("error\nbad map\n"));
-	cub->img = (t_image *)malloc(sizeof(t_image));
-	cub->map = (t_image *)malloc(sizeof(t_image));
-	if (!cub->img)
+	img = (t_image *)malloc(sizeof(t_image));
+	if (!img)
 		exit(1);
-	cub->img->mlx = mlx_init();
-	cub->img->y_size = count_lines_w_fd(map) * 64;
-	cub->img->x_size = count_bytes_w_fd(map[0]) * 64;
-	cub->img->mlx_win = mlx_new_window(cub->img->mlx, cub->img->x_size,
-			cub->img->y_size, "So_long!");
-	cub->img->map = map;
-	put_img(cub->img);
-	mlx_hook(cub->img->mlx_win, 17, 0, close_window, cub->img);
-	mlx_loop(cub->img->mlx);
+	img->mlx = mlx_init();
+	img->y_size = count_lines_w_fd(map) * 64;
+	img->x_size = count_bytes_w_fd(map[0]) * 64;
+	img->mlx_win = mlx_new_window(img->mlx, img->x_size,
+			img->y_size, "cub3d");
+	img->map = map;
+	int i = 0;
+	while(map[i])
+		printf("%s\n", map[i++]);
+	raycasting(img);
+	mlx_hook(img->mlx_win, 17, 0, close_window, img);
+	mlx_key_hook(img->mlx_win, move, img);
+	mlx_loop(img->mlx);
 }

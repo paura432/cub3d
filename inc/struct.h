@@ -6,34 +6,13 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 11:04:19 by pau               #+#    #+#             */
-/*   Updated: 2024/11/05 11:21:15 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/06 10:47:10 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
-typedef struct s_cub3d
-{
-    t_map *map;
-    t_image *img;
-} t_cub3d;
-
-typedef struct s_image
-{
-	void	*img;
-	void	*mlx;
-	void	*mlx_win;
-	char	*addr;
-    int		bits_p_pixel;
-	int		line_len;
-	int		endian;
-    int		x_size;
-	int		y_size;
-	int		y_pos;
-	int		x_pos;
-	char	**map;
-}				t_image;
 
 typedef struct s_map
 {
@@ -44,6 +23,25 @@ typedef struct s_map
     char    *F;
     char    *C;
     char    **map;
-} t_map;
+}           t_map;
+
+typedef struct s_image
+{
+    t_map   *tmap;
+	void	*img;
+	void	*mlx;
+	void	*mlx_win;
+	char	*addr;
+    int		bits_p_pixel;
+	int		line_len;
+	int		endian;
+    int		x_size;
+	int		y_size;
+	int		y_pos;
+    int     x_pxl_pos;
+    int     y_pxl_pos;
+	int		x_pos;
+	char	**map;
+}				t_image;
 
 #endif

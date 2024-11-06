@@ -1,6 +1,7 @@
-NAME = so_long
+NAME = cub3d
 
-MY_SOURCES = src/cub3d.c src/read.c
+MY_SOURCES = src/cub3d.c src/read.c src/flood_fill.c src/free.c \
+			src/raycasting.c src/move.c
 MY_OBJECTS =  $(MY_SOURCES:.c=.o)
 
 CC = gcc -Wall -Wextra -Werror #-g3 -fsanitize=address
