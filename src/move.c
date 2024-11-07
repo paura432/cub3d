@@ -6,55 +6,51 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 22:14:21 by pramos            #+#    #+#             */
-/*   Updated: 2024/11/06 11:15:18 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/07 07:44:46 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	move(int key_code, t_image *img)
+int	key_press(int key_code, t_image *img)
 {
+	draw_pixel(img, 0x000000, 8);
+	
 	if (key_code == 100)
-		right(img);
-	// if (key_code == 119)
-	// 	up(img);
-	// if (key_code == 97)
-	// 	left(img);
-	// if (key_code == 115)
-	// 	down(img);
+		img->x_player += 5;
+	if (key_code == 119)
+		img->y_player -= 5;
+	if (key_code == 97)
+		img->x_player -= 5;
+	if (key_code == 115)
+		img->y_player += 5;
 	if (key_code == 65307)
 	{
 		ft_printf("GAME FINISHED\n");
 		free_list(img);
 	}
+	
+	draw_pixel(img, 0x00FF0000, 8);
 	return (0);
 }
-void	black_out(t_image *img)
-{
-	int		x;
-	int		y;
 
-	y = 0;
-	while (img->map[y])
-	{
-		x = 0;
-		while (img->map[y][x] != '\0' && img->map[y][x] != '\n')
-		{
-			if (img->map[y][x] == '0' || img->map[y][x] == 'N')
-                fill_pixels(img, "textures/suelo.xpm", x, y);
-			x++;
-		}
-		y++;
-	}
+int	key_release(void)
+{	
+	return (0);
 }
 
-void	right(t_image *img)
+//tamaño del jugador de 8x8
+void    draw_pixel(t_image *img, int color, int pixel)
 {
-	// if ((img->x_pos + 1) *64 < img->x_pxl_pos + 4)
-	// 	return ;
-	img->x_pxl_pos += 4;
-	black_out(img);
-	img = ft_new_sprite(img, "fonod mas pequeño.xpm");
-	mlx_put_image_to_window(img->mlx, img->mlx_win, img->img,
-		img->x_pxl_pos, img->y_pxl_pos);
+	int i;
+	int j;
+
+	i = 0;
+	while(i < pixel)
+	{
+		j = -1;
+		while(++j < pixel)
+			mlx_pixel_put(img->mlx, img->mlx_win, img->x_player + i, img->y_player + j, color);
+		i++;
+	}
 }
