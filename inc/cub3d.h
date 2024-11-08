@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:42:37 by pau               #+#    #+#             */
-/*   Updated: 2024/11/07 07:45:05 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/08 10:41:19 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,12 @@ void    fill_map(t_image *img);
 
 //move.c
 // int	    move(int key_code, t_image *img);
-void    draw_pixel(t_image *img, int color, int pixel);
+
 int	    key_press(int key_code, t_image *img);
 int	    key_release(void);
+
+//draw.c
+void    draw_map(t_image *img);
+void    draw_pixel(t_image *img, int color, int pixel);
 
 #endif

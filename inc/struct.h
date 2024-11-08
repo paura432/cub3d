@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 11:04:19 by pau               #+#    #+#             */
-/*   Updated: 2024/11/06 20:57:38 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/08 10:50:23 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_image
 	int		endian;
     int     x_player;
     int     y_player;
+    int     x_pixel;
+    int     y_pixel;
 	char	**map;
 }				t_image;
 
