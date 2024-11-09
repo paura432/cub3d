@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:40:31 by pau               #+#    #+#             */
-/*   Updated: 2024/11/08 11:03:05 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/09 12:23:41 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@ int	close_window(t_image *img)
 	return (0);
 }
 
+void		start_values(t_image *img)
+{
+	img->player = (t_player *)malloc(sizeof(t_player));
+	if (img->player == NULL)
+		return (free_list(img));
+	img->player->px = img->x_player;
+	img->player->py = img->y_player;
+	img->player->pdx = 5.0;
+	img->player->pdy = 0.0;
+	img->player->pa = 0.0;
+}
+
 int	main(int argc, char **argv)
 {
 	char	**map;
@@ -27,6 +39,7 @@ int	main(int argc, char **argv)
 	if(argc == 0)
 		return(0);
 	map = ft_read(argv);
+	start_values(&img);
 	img.x_player = (count_bytes_w_fd(map[0]) * 64) / 2;
 	img.y_player = (count_lines_w_fd(map) * 64) / 2;
 	img.mlx = mlx_init();
@@ -34,6 +47,7 @@ int	main(int argc, char **argv)
 			count_lines_w_fd(map) * 64, "cub3d");
 	img.map = map;
 	draw_map(&img);
+	draw_line(&img, 0x00FF0000, 16);
 	img.y_pixel = img.y_player;
     img.x_pixel = img.x_player;
 	mlx_hook(img.mlx_win, 17, 0, close_window, &img);

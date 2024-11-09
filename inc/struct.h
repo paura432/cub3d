@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 11:04:19 by pau               #+#    #+#             */
-/*   Updated: 2024/11/08 10:50:23 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/09 12:16:23 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,40 @@
 # define STRUCT_H
 
 
-typedef struct s_map
+typedef struct s_player
 {
-    char    *NO;
-    char    *SO;
-    char    *WE;
-    char    *EA;
-    char    *F;
-    char    *C;
-    char    **map;
-}           t_map;
+    float     px;
+    float     py;
+    float     pdx;
+    float     pdy;
+    float     pa;
+}               t_player;
 
 typedef struct s_image
 {
-    t_map   *tmap;
-	void	*img;
-	void	*mlx;
-	void	*mlx_win;
-	char	*addr;
-    int		bits_p_pixel;
-	int		line_len;
-	int		endian;
-    int     x_player;
-    int     y_player;
-    int     x_pixel;
-    int     y_pixel;
-	char	**map;
+    t_player    *player;
+	void	    *img;
+	void	    *mlx;
+	void	    *mlx_win;
+	char        *addr;
+    int		    bits_p_pixel;
+	int		    line_len;
+	int		    endian;
+    float         x_player;
+    float         y_player;
+    float         x_pixel;
+    float         y_pixel;
+	char	    **map;
 }				t_image;
+
+typedef struct s_line
+{
+    float start_x;
+    float start_y;
+    float end_x;
+    float end_y;
+    float intermediate_x;
+    float intermediate_y;
+}               t_line;
 
 #endif

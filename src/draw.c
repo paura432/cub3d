@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 10:32:45 by pau               #+#    #+#             */
-/*   Updated: 2024/11/08 11:02:41 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/09 12:27:18 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,67 @@
 
 void     draw_map(t_image *img)
 {
-    int i;
-	int j;
+    int y;
+	int x;
 
-	i = 0;
-	while(img->map[i])
+	y = 0;
+	while(img->map[y])
 	{
-		j = -1;
+		x = -1;
         img->x_pixel = 0;
-        while(img->map[i][++j])
+        while(img->map[y][++x])
         {
-            if (img->map[i][j] == '1')
+            if (img->map[y][x] == '1')
                 draw_pixel(img, 0xFFFFFF, 64);
-            if (img->map[i][j] == 'N')
+            if (img->map[y][x] == 'N')
             {
                 draw_pixel(img, 0x00FF0000, 8);
                 img->x_player = img->x_pixel;
                 img->y_player = img->y_pixel;
-                printf("%i :: img->x_player\n", img->x_player);
-                printf("%i :: img->x_player\n", img->y_player);
             }
             img->x_pixel += 64;
         }
         img->y_pixel += 64;
-		i++;
+		y++;
 	}
+}
+
+void draw_line(t_image *img, int color, int length)
+{
+	t_line line;
+	int pixels_line;
+	int i;
+
+	//donde empieza la linea el centro de nnuestro personaje
+	line.start_x = img->x_pixel + 4;
+	line.start_y = img->y_pixel + 4;
+
+	//donde acaba
+	line.end_x = img->x_pixel + 4 + cos(img->player->pa) * length;
+	line.end_y = img->y_pixel + 4 + sin(img->player->pa) * length;
+
+	pixels_line = 100;
+	i = -1;
+	while (++i <= pixels_line)
+    {
+        line.intermediate_x = line.start_x + (line.end_x - line.start_x) * i / pixels_line;
+        line.intermediate_y = line.start_y + (line.end_y - line.start_y) * i / pixels_line;
+
+        mlx_pixel_put(img->mlx, img->mlx_win, (int)line.intermediate_x, (int)line.intermediate_y, color);
+    }
 }
 
 void    draw_pixel(t_image *img, int color, int pixel)
 {
-	int i;
-	int j;
+	int y;
+	int x;
 
-	i = 0;
-	while(i < pixel)
+	y = 0;
+	while(y < pixel)
 	{
-		j = -1;
-		while(++j < pixel)
-			mlx_pixel_put(img->mlx, img->mlx_win, img->x_pixel + i, img->y_pixel + j, color);
-		i++;
+		x = -1;
+		while(++x < pixel)
+			mlx_pixel_put(img->mlx, img->mlx_win, (int)img->x_pixel + y, (int)img->y_pixel + x, color);
+		y++;
 	}
 }
