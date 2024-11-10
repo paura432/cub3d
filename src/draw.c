@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 10:32:45 by pau               #+#    #+#             */
-/*   Updated: 2024/11/10 21:27:19 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/10 21:32:12 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,31 +39,31 @@ void     draw_map(t_image *img)
 	}
 }
 
-void draw_line(t_image *img, int color, int length)
-{
-	t_line line;
-	int pixels_line;
-	int i;
+// void draw_line(t_image *img, int color, int length)
+// {
+// 	t_line line;
+// 	int pixels_line;
+// 	int i;
 
-	//donde empieza la linea el centro de nnuestro personaje
-	line.start_x = img->x_pixel + 4;
-	line.start_y = img->y_pixel + 4;
+// 	//donde empieza la linea el centro de nnuestro personaje
+// 	line.start_x = img->x_pixel + 4;
+// 	line.start_y = img->y_pixel + 4;
 
-	//donde acaba
-	line.end_x = img->x_pixel + 4 + cos(img->player->pa) * length;
-	line.end_y = img->y_pixel + 4 + sin(img->player->pa) * length;
+// 	//donde acaba
+// 	line.end_x = img->x_pixel + 4 + cos(img->player->pa) * length;
+// 	line.end_y = img->y_pixel + 4 + sin(img->player->pa) * length;
 
-	pixels_line = 100;
-	i = -1;
-	while (++i <= pixels_line)
-    {
-		//los puntos que nos interesan que van desde el centro hasta el punto final
-        line.intermediate_x = line.start_x + (line.end_x - line.start_x) * i / pixels_line;
-        line.intermediate_y = line.start_y + (line.end_y - line.start_y) * i / pixels_line;
+// 	pixels_line = 100;
+// 	i = -1;
+// 	while (++i <= pixels_line)
+//     {
+// 		//los puntos que nos interesan que van desde el centro hasta el punto final
+//         line.intermediate_x = line.start_x + (line.end_x - line.start_x) * i / pixels_line;
+//         line.intermediate_y = line.start_y + (line.end_y - line.start_y) * i / pixels_line;
 
-        mlx_pixel_put(img->mlx, img->mlx_win, (int)line.intermediate_x, (int)line.intermediate_y, color);
-    }
-}
+//         mlx_pixel_put(img->mlx, img->mlx_win, (int)line.intermediate_x, (int)line.intermediate_y, color);
+//     }
+// }
 
 void draw_line_until_wall(t_image *img, int color, int max_distance)
 {

@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:40:31 by pau               #+#    #+#             */
-/*   Updated: 2024/11/10 21:30:43 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/10 21:32:35 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	main(int argc, char **argv)
 	img.mlx_win = mlx_new_window(img.mlx, count_bytes_w_fd(img.map[0]) * 64,
 			count_lines_w_fd(img.map) * 64, "cub3d");
 	draw_map(&img);
-	draw_line(&img, 0x00FF0000, 16);
 	img.y_pixel = img.y_player;
     img.x_pixel = img.x_player;
 	mlx_hook(img.mlx_win, 17, 0, close_window, &img);
