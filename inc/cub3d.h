@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:42:37 by pau               #+#    #+#             */
-/*   Updated: 2024/11/09 11:18:02 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/10 21:26:30 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	free_matriz(char **matriz);
 
 //raycasting
 void    raycasting(t_image *img);
-void    fill_pixels(t_image *img, char *relative_path, int x, int y);
-void    fill_map(t_image *img);
 
 //move.c
 // int	    move(int key_code, t_image *img);
@@ -67,4 +65,6 @@ void	down(t_image *img);
 void    draw_map(t_image *img);
 void    draw_pixel(t_image *img, int color, int pixel);
 void    draw_line(t_image *img, int color, int length);
+void    draw_line_until_wall(t_image *img, int color, int max_distance);
+
 #endif

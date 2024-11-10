@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 22:14:21 by pramos            #+#    #+#             */
-/*   Updated: 2024/11/09 12:21:12 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/10 21:31:09 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	key_press(int key_code, t_image *img)
 	actual_py = img->y_pixel;
 	draw_pixel(img, 0x000000, 8);
 	draw_line(img, 0x000000, 16);
+	draw_line_until_wall(img, 0x000000, count_bytes_w_fd(img->map[0]) * 64);
+
 	
 	if (key_code == 100)
 		if(move_check(img, (actual_px + 8), actual_py))
@@ -42,6 +44,8 @@ int	key_press(int key_code, t_image *img)
 	
 	draw_pixel(img, 0x00FF0000, 8);
 	draw_line(img, 0x00FF0000, 16);
+	draw_line_until_wall(img, 0x00FF0000, count_bytes_w_fd(img->map[0]) * 64);
+		
 	return (0);
 }
 

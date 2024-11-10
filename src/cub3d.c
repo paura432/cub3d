@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:40:31 by pau               #+#    #+#             */
-/*   Updated: 2024/11/09 12:23:41 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/10 21:30:43 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,24 @@ void		start_values(t_image *img)
 	img->player->pdx = 5.0;
 	img->player->pdy = 0.0;
 	img->player->pa = 0.0;
+
+	img->win_width = count_bytes_w_fd(img->map[0]);
+	img->win_height = count_lines_w_fd(img->map);
 }
 
 int	main(int argc, char **argv)
 {
-	char	**map;
 	t_image	img;
 
 	if(argc == 0)
 		return(0);
-	map = ft_read(argv);
+	img.map = ft_read(argv);
 	start_values(&img);
-	img.x_player = (count_bytes_w_fd(map[0]) * 64) / 2;
-	img.y_player = (count_lines_w_fd(map) * 64) / 2;
+	img.x_player = (count_bytes_w_fd(img.map[0]) * 64) / 2;
+	img.y_player = (count_lines_w_fd(img.map) * 64) / 2;
 	img.mlx = mlx_init();
-	img.mlx_win = mlx_new_window(img.mlx, count_bytes_w_fd(map[0]) * 64,
-			count_lines_w_fd(map) * 64, "cub3d");
-	img.map = map;
+	img.mlx_win = mlx_new_window(img.mlx, count_bytes_w_fd(img.map[0]) * 64,
+			count_lines_w_fd(img.map) * 64, "cub3d");
 	draw_map(&img);
 	draw_line(&img, 0x00FF0000, 16);
 	img.y_pixel = img.y_player;
