@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:42:37 by pau               #+#    #+#             */
-/*   Updated: 2024/11/10 21:26:30 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/11 22:10:43 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <x86intrin.h>
 # include <semaphore.h>
 # define PI 3.1415926535
+# define DR 0.0174533
 
 //cub3d
 t_image	*ft_new_sprite(t_image *cub, char *path);
@@ -52,8 +53,6 @@ void	free_matriz(char **matriz);
 void    raycasting(t_image *img);
 
 //move.c
-// int	    move(int key_code, t_image *img);
-
 int	    key_press(int key_code, t_image *img);
 int	    move_check(t_image *img, int actual_px, int actual_py);
 void	right(t_image *img);
@@ -66,5 +65,6 @@ void    draw_map(t_image *img);
 void    draw_pixel(t_image *img, int color, int pixel);
 void    draw_line(t_image *img, int color, int length);
 void    draw_line_until_wall(t_image *img, int color, int max_distance);
+void    increase_degree(t_image *img);
 
 #endif

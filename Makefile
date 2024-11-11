@@ -4,7 +4,7 @@ MY_SOURCES = src/cub3d.c src/read.c src/flood_fill.c src/free.c \
 			src/raycasting.c src/move.c src/draw.c
 MY_OBJECTS =  $(MY_SOURCES:.c=.o)
 
-CC = gcc -Wall -Wextra -Werror #-g3 -fsanitize=address
+CC = gcc -Wall -Wextra -Werror -g3 #-fsanitize=address
 MLXFLAGS = -lX11 -lXext -lm
 $(NAME): $(MY_OBJECTS)
 	@${MAKE} -C ./libft
