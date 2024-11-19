@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 11:04:19 by pau               #+#    #+#             */
-/*   Updated: 2024/11/12 00:18:49 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/19 20:10:33 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ typedef struct s_wall
 	int     wall_top;
 	int     wall_bottom;
 	int     wall_y;
+	int		wall_x;
 	int 	distance;
+	int 	draw_y;
 }               t_wall;
 
 typedef struct s_image

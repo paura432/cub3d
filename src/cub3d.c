@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:40:31 by pau               #+#    #+#             */
-/*   Updated: 2024/11/12 00:42:28 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/19 20:24:05 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int argc, char **argv)
 	img.x_player = (count_bytes_w_fd(img.map[0]) * 64) / 2;
 	img.y_player = (count_lines_w_fd(img.map) * 64) / 2;
 	img.mlx = mlx_init();
+	printf("%i\n", count_lines_w_fd(img.map) * 64);
 	img.mlx_win = mlx_new_window(img.mlx, count_bytes_w_fd(img.map[0]) * 64 + 480,
 			count_lines_w_fd(img.map) * 64, "cub3d");
 	draw_map(&img);
