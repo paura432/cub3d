@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 10:32:45 by pau               #+#    #+#             */
-/*   Updated: 2024/11/20 00:25:21 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/20 00:29:43 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,6 @@ void draw_line_until_wall(t_image *img, int color, int max_distance)
 		lineO = (120 - lineH) / 2;
 		
 		suma = lineO;
-		printf("lineH numero :: %i == %f\n", eje / 8, lineH);
-		printf("suma %i\n", suma);
-		printf("lineO numero :: %i == %f\n", eje / 8, lineO);
 		while (suma < lineH)
 		{
 			draw_block(img, img->win_width * 64 + eje, lineH + lineO - suma, color);
