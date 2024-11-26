@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:42:37 by pau               #+#    #+#             */
-/*   Updated: 2024/11/11 22:10:43 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/26 19:56:19 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	start_values(t_image *img);
 
 //read
 int	    count_lines(char *argv);
-int	count_bytes(char *argv);
+int	    count_bytes(char *argv);
 char	**ft_read(char **argv);
 
 //flood_fill
@@ -54,7 +54,7 @@ void    raycasting(t_image *img);
 
 //move.c
 int	    key_press(int key_code, t_image *img);
-int	    move_check(t_image *img, int actual_px, int actual_py);
+int	    move_check(t_image *img);
 void	right(t_image *img);
 void	up(t_image *img);
 void	left(t_image *img);

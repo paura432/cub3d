@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 10:32:45 by pau               #+#    #+#             */
-/*   Updated: 2024/11/20 00:29:43 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/26 22:52:47 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	draw_line(t_image *img, int color, int length)
 	line.start_x = img->x_pixel + 4;
 	line.start_y = img->y_pixel + 4;
 
-	line.end_x = img->x_pixel + 4 + cos(img->player->pa) * length;
-	line.end_y = img->y_pixel + 4 + sin(img->player->pa) * length;
+	line.end_x = img->x_pixel + 2 + cos(img->player->pa) * length;
+	line.end_y = img->y_pixel + 2 + sin(img->player->pa) * length;
 
 	pixels_line = 100;
 	height = -1;
@@ -95,7 +95,6 @@ void draw_block(t_image *img, int x, int y, int color)
     }
 }
 
-
 void draw_line_until_wall(t_image *img, int color, int max_distance)
 {
     int r; // Índice del rayo
@@ -107,64 +106,35 @@ void draw_line_until_wall(t_image *img, int color, int max_distance)
     r = -1;
 	eje = 0;
 	suma = 0;
-    while (++r < 60) // Iteramos sobre cada rayo
+    while (++r < 60)
     {
-        wall.distance = 0; // Distancia inicial del rayo
-        while (++wall.distance < max_distance) // Iteramos hasta la distancia máxima
+        wall.distance = -1;
+        while (++wall.distance < max_distance)
         {
-            wall.wall_x = img->x_pixel + 4 + cos(img->ray->ra) * wall.distance; // Cálculo de posición x
-            wall.wall_y = img->y_pixel + 4 + sin(img->ray->ra) * wall.distance; // Cálculo de posición y
-
-            // Comprobamos si hemos alcanzado una pared
+            wall.wall_x = img->x_pixel + 4 + cos(img->ray->ra) * wall.distance;
+            wall.wall_y = img->y_pixel + 4 + sin(img->ray->ra) * wall.distance;
             if (img->map[wall.wall_y / 64][wall.wall_x / 64] == '1')
                 break;
-
-            // Dibujo del rayo
             mlx_pixel_put(img->mlx, img->mlx_win, wall.wall_x, wall.wall_y, color);
         }
-
-		float ca;
-		ca = img->player->pa - img->ray->ra;
-		if (ca < 0)
-			ca += 2 * PI;
-		if (ca > 2 * PI)
-			ca -= 2 * PI;
-		float lineH;
-		wall.distance = wall.distance * cos(ca);
-		lineH = ((240 * 64) / wall.distance);
-		if (lineH > 240)
-			lineH = 240;
-		float lineO;
-		lineO = (120 - lineH) / 2;
+		wall.ca = img->player->pa - img->ray->ra;
+		if (wall.ca < 0)
+			wall.ca += 2 * PI;
+		if (wall.ca > 2 * PI)
+			wall.ca -= 2 * PI;
+		wall.distance = wall.distance * cos(wall.ca);
+		wall.lineH = ((240 * 64) / wall.distance);
+		if (wall.lineH > 240)
+			wall.lineH = 240;
+		wall.lineO = (120 - wall.lineH) / 2;
 		
-		suma = lineO;
-		while (suma < lineH)
+		suma = wall.lineO;
+		while (suma < wall.lineH)
 		{
-			draw_block(img, img->win_width * 64 + eje, lineH + lineO - suma, color);
+			draw_block(img, img->win_width * 64 + eje, wall.lineH + wall.lineO - suma, color);
 			suma ++;
 		}
 		eje += 8;
-        // // Calculamos la distancia al muro
-        // float dist = sqrt(pow(wall.wall_x - img->x_pixel, 2) + pow(wall.wall_y - img->y_pixel, 2));
-        // wall.distance = dist;
-
-        // // Calculamos la altura del muro
-        // wall.wall_height = (img->win_height * 64) / (dist + 0.001); // +0.001 para evitar división por cero
-        // if (wall.wall_height > img->win_height)
-        //     wall.wall_height = img->win_height;
-
-        // // Calculamos la posición del muro en la ventana
-        // wall.wall_top = (img->win_height / 2) - (wall.wall_height / 2);
-        // wall.wall_bottom = wall.wall_top + wall.wall_height;
-
-        // // Dibujamos el muro en la ventana
-        // wall.draw_y = wall.wall_top; // Variable local para iterar en la altura
-        // while (wall.draw_y < wall.wall_bottom) 
-        // {
-        //     mlx_pixel_put(img->mlx, img->mlx_win, r + img->win_width *64, wall.draw_y, color); // Dibujo del bloque
-        //     wall.draw_y++;
-        // }
-
         increase_degree(img); // Incrementamos el ángulo para el siguiente rayo
     }
 }

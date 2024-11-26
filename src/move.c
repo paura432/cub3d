@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 22:14:21 by pramos            #+#    #+#             */
-/*   Updated: 2024/11/11 22:23:14 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/26 22:56:40 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,18 @@
 
 int	key_press(int key_code, t_image *img)
 {
-	float actual_px;
-	float actual_py;
-
-	actual_px = img->x_pixel;
-	actual_py = img->y_pixel;
 	draw_line_until_wall(img, 0x000000, count_bytes_w_fd(img->map[0]) * 64);
-	draw_line(img, 0x000000, 16);
 	draw_pixel(img, 0x000000, 8);
-	
+
 	if (key_code == 100)
-		if(move_check(img, (actual_px + 8), actual_py))
-			right(img);
-	if (key_code == 119)
-		if(move_check(img, actual_px,(actual_py - 8)))
-			up(img);
+		right(img);
 	if (key_code == 97)
-		if(move_check(img, (actual_px - 8), actual_py))
-			left(img);
+		left(img);
+	move_check(img);
+	if (key_code == 119)
+		up(img);
 	if (key_code == 115)
-		if(move_check(img, actual_px, (actual_py + 8)))
-			down(img);
+		down(img);
 	if (key_code == 65307)
 	{
 		ft_printf("GAME FINISHED\n");
@@ -42,7 +33,6 @@ int	key_press(int key_code, t_image *img)
 	}
 	
 	draw_line_until_wall(img, 0x00FF00, count_bytes_w_fd(img->map[0]) * 64);
-	draw_line(img, 0x00FF0000, 16);
 	draw_pixel(img, 0x00FF0000, 8);
 	
 	return (0);
@@ -59,10 +49,13 @@ void	right(t_image *img)
 
 void	up(t_image *img)
 {
-    img->x_pixel += img->player->pdx;
-    img->y_pixel += img->player->pdy;
+	if(img->map[img->check->ipy][img->check->ipx_add_xo] == '0'
+		|| img->map[img->check->ipy][img->check->ipx_add_xo] == 'N')
+    	img->x_pixel += img->player->pdx;
+	if(img->map[img->check->ipy_add_yo][img->check->ipx] == '0' 
+		|| img->map[img->check->ipy_add_yo][img->check->ipx] == 'N')
+    	img->y_pixel += img->player->pdy;
 }
-
 void	left(t_image *img)
 {
 	img->player->pa += 0.1;
@@ -75,18 +68,35 @@ void	left(t_image *img)
 
 void	down(t_image *img)
 {
-    img->x_pixel -= img->player->pdx;
-    img->y_pixel -= img->player->pdy;
+	if(img->map[img->check->ipy][img->check->ipx_sub_xo] == '0'
+		|| img->map[img->check->ipy][img->check->ipx_sub_xo] == 'N')
+    	img->x_pixel -= img->player->pdx;
+	if(img->map[img->check->ipy_sub_yo][img->check->ipx] == '0' 
+		|| img->map[img->check->ipy_sub_yo][img->check->ipx] == 'N')
+    	img->y_pixel -= img->player->pdy;
 }
 
-int	move_check(t_image *img, int actual_px, int actual_py)
+int	move_check(t_image *img)
 {
-	int x_map;
-	int y_map;
-	
-	x_map = (int)actual_px / 64;
-	y_map = (int)actual_py / 64;
-	if(img->map[y_map][x_map] == '1')
-		return(0);
-	return (1);
+	int x;
+	int y;
+
+	if(img->player->pdx < 0)
+		img->check->x = -20;
+	else
+		img->check->x = 20;
+	if(img->player->pdy < 0)
+		img->check->y = -20;
+	else
+		img->check->y = 20;
+	x = (int)img->x_pixel;
+	y = (int)img->y_pixel;
+	img->check->ipx = (int)img->x_pixel / 64;
+	img->check->ipy = (int)img->y_pixel / 64;
+	img->check->ipx_add_xo = ((x + img->check->x) / 64);
+	img->check->ipy_add_yo = ((y + img->check->y) / 64);
+	img->check->ipx_sub_xo = ((x - img->check->x) / 64);
+	img->check->ipy_sub_yo = ((y - img->check->y) / 64);
+	return (0);
 }
+

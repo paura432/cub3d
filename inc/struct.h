@@ -6,12 +6,24 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 11:04:19 by pau               #+#    #+#             */
-/*   Updated: 2024/11/19 20:10:33 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/26 20:18:37 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
+
+typedef struct s_move_check
+{
+	int         x;
+	int       	y;
+	int       	ipx;
+	int       	ipy;
+	int 		ipx_add_xo;
+	int 		ipy_add_yo;
+	int 		ipx_sub_xo;
+	int 		ipy_sub_yo;
+}               t_move_check;
 
 typedef struct s_raycasting
 {
@@ -38,7 +50,10 @@ typedef struct s_wall
 	int     wall_bottom;
 	int     wall_y;
 	int		wall_x;
-	int 	distance;
+	float	lineH;
+	float	lineO;
+	float 	distance;
+	float 	ca;
 	int 	draw_y;
 }               t_wall;
 
@@ -46,6 +61,7 @@ typedef struct s_image
 {
 	t_player        *player;
 	t_raycasting    *ray;
+	t_move_check	*check;
 	void	        *img;
 	void	        *mlx;
 	void	        *mlx_win;

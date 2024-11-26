@@ -6,7 +6,7 @@
 /*   By: pau <pau@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 20:40:31 by pau               #+#    #+#             */
-/*   Updated: 2024/11/19 20:24:05 by pau              ###   ########.fr       */
+/*   Updated: 2024/11/26 22:19:55 by pau              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void		start_values(t_image *img)
 		return (free_list(img));
 	img->ray = (t_raycasting *)malloc(sizeof(t_raycasting));
 	if (img->ray == NULL)
+		return (free_list(img));
+	img->check = (t_move_check *)malloc(sizeof(t_move_check));
+	if (img->check == NULL)
 		return (free_list(img));
 	img->player->px = img->x_player;
 	img->player->py = img->y_player;
@@ -49,7 +52,7 @@ int	main(int argc, char **argv)
 	img.y_player = (count_lines_w_fd(img.map) * 64) / 2;
 	img.mlx = mlx_init();
 	printf("%i\n", count_lines_w_fd(img.map) * 64);
-	img.mlx_win = mlx_new_window(img.mlx, count_bytes_w_fd(img.map[0]) * 64 + 480,
+	img.mlx_win = mlx_new_window(img.mlx, count_bytes_w_fd(img.map[0]) * 64 * 2,
 			count_lines_w_fd(img.map) * 64, "cub3d");
 	draw_map(&img);
 	img.y_pixel = img.y_player;
