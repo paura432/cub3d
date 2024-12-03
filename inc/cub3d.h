@@ -13,10 +13,9 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#ifndef CUB3D_H
-# define CUB3D_H
-
 #include "../libft/libft.h"
+#include "fcntl.h"
+#include "../mlx_linux/mlx.h"
 
 typedef enum e_cub_err
 {
@@ -130,6 +129,8 @@ typedef struct s_game
 	float		y;
 }				t_game;
 
-#endif
-
+int cuberror(t_cub_err err, t_game *game, char *param, int c);
+void cub_usage(int err);
+void cub_exit(void *param);
+void init_sprites(t_game *game);
 #endif
